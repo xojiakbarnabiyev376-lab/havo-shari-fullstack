@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { prisma } = require('../config/prisma');
-const { bot, getAdminChatId } = require('../config/bot');
+const { bot, getAdminChatIds } = require('../config/bot');
 
 exports.createBooking = async (req, res, next) => {
   try {
@@ -25,8 +25,8 @@ exports.createBooking = async (req, res, next) => {
       }
     });
 
-    const adminChatId = getAdminChatId();
-    if (adminChatId) {
+    const adminChatIds = await getAdminChatIds();
+    for (const chatId of adminChatIds) {
       let message = `🎈 *Yangi Buyurtma!*\n\n`;
       message += `👤 Mijoz: ${name || 'Noma\'lum'}\n`;
       message += `📞 Telefon: ${phone}\n`;
@@ -35,10 +35,14 @@ exports.createBooking = async (req, res, next) => {
       message += `📦 Paket: ${pkg.name}\n`;
       message += `💰 Jami to'lov: ${(parseInt(passengerCount || '1') * pkg.price).toLocaleString('uz-UZ')} so'm\n`;
       
-      if (req.file) {
-        bot.sendPhoto(adminChatId, req.file.path, { caption: message, parse_mode: 'Markdown' });
-      } else {
-        bot.sendMessage(adminChatId, message, { parse_mode: 'Markdown' });
+      try {
+        if (req.file) {
+          await bot.sendPhoto(chatId, req.file.path, { caption: message, parse_mode: 'Markdown' });
+        } else {
+          await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
+        }
+      } catch (botErr) {
+        console.error(`Error sending to ${chatId}:`, botErr);
       }
     }
 
@@ -153,12 +157,18 @@ exports.sendReport = async (req, res, next) => {
     message += `━━━━━━━━━━━━━━━\n`;
     message += `💵 *UMUMIY TUSHUM: ${totalSum.toLocaleString('uz-UZ')} so'm*`;
 
-    const adminChatId = getAdminChatId();
-    if (adminChatId) {
-      await bot.sendMessage(adminChatId, message, { parse_mode: 'Markdown' });
+    const adminChatIds = await getAdminChatIds();
+    if (adminChatIds.length > 0) {
+      for (const chatId of adminChatIds) {
+        try {
+          await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
+        } catch (botErr) {
+          console.error(`Error sending report to ${chatId}:`, botErr);
+        }
+      }
       res.json({ success: true });
     } else {
-      res.status(400).json({ error: 'Admin chat ID topilmadi' });
+      res.status(400).json({ error: 'Adminlar topilmadi. Botga /start buyrug\'ini yuboring.' });
     }
   } catch (err) {
     next(err);

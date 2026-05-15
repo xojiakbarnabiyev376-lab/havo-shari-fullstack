@@ -39,3 +39,8 @@ model Booking {
   package        Package   @relation(fields: [packageId], references: [id])
   createdAt      DateTime  @default(now())
 }
+
+model TelegramAdmin {
+  id      String @id @default(uuid())
+  chatId  String @unique
+}
