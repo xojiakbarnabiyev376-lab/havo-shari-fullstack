@@ -155,11 +155,11 @@ function BookingForm() {
           />
         </div>
 
-        <div style={{ background: '#1c1917', color: 'white', padding: '1.5rem', borderRadius: '10px', marginTop: '2rem', textAlign: 'center' }}>
+        <div className={styles.paymentCard}>
           <p style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>
             {t.amount}: <strong style={{ color: 'var(--accent-orange)' }}>{totalAmount.toLocaleString('ru-RU')} so'm</strong>
           </p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', background: '#292524', padding: '1rem', borderRadius: '8px' }}>
+          <div className={styles.cardNumberBox}>
             <span style={{ fontSize: '1.25rem', letterSpacing: '2px', color: 'var(--accent-orange)', fontWeight: 'bold' }}>{cardNumber}</span>
             <button type="button" onClick={copyToClipboard} style={{ background: 'var(--accent-orange)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
               {t.copy}

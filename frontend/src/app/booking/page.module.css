@@ -94,3 +94,33 @@
     margin-bottom: 1.5rem;
   }
 }
+
+.paymentCard {
+  background: #1c1917;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.cardNumberBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #292524;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+  .cardNumberBox {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .cardNumberBox span {
+    font-size: 1.1rem !important;
+  }
+}

@@ -132,6 +132,12 @@
   gap: 2rem;
 }
 
+@media (max-width: 768px) {
+  .packagesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .packageCard {
   background: white;
   border-radius: 20px;
