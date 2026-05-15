@@ -15,7 +15,7 @@ export default function CheckBookingPage() {
     setIsLoading(true);
     setSearched(true);
     try {
-      const data = await apiRequest(`/api/bookings/check?phone=${phone}`);
+      const data = await apiRequest(`/api/bookings/check?phone=${encodeURIComponent(phone)}`);
       setBookings(data);
     } catch (err) {
       alert("Xatolik yuz berdi");
