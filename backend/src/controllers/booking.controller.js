@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { prisma } = require('../config/prisma');
 const { bot, getAdminChatId } = require('../config/bot');
 
