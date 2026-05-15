@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  username     String    @unique
+  passwordHash String
+  role         String    @default("admin")
+  createdAt    DateTime  @default(now())
+}
+
+model Package {
+  id          String    @id @default(uuid())
+  name        String
+  duration    String
+  price       Float
+  features    String    // JSON string or comma-separated
+  isPremium   Boolean   @default(false)
+  image       String?   // Path to package image
+  bookings    Booking[]
+}
+
+model Booking {
+  id             String    @id @default(uuid())
+  name           String    @default("")
+  date           DateTime
+  passengerCount Int
+  phone          String
+  status         String    @default("pending") // pending, confirmed, cancelled
+  paymentMethod  String?   // uzcard, humo, click, payme, visa, mastercard
+  receiptUrl     String?
+  packageId      String
+  package        Package   @relation(fields: [packageId], references: [id])
+  createdAt      DateTime  @default(now())
+}

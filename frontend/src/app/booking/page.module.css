@@ -1,0 +1,80 @@
+/* src/app/booking/page.module.css */
+.container {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background-color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookingForm {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 600px;
+}
+
+.title {
+  color: var(--primary-blue);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.input, .select {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--secondary-blue);
+}
+
+.paymentMethods {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.paymentMethod {
+  flex: 1;
+  min-width: 100px;
+  padding: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.paymentMethod.active {
+  border-color: var(--accent-orange);
+  background-color: rgba(245, 158, 11, 0.1);
+  font-weight: 600;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 2rem;
+  font-size: 1.125rem;
+}
