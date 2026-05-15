@@ -132,3 +132,35 @@ exports.clearBookings = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.sendReport = async (req, res, next) => {
+  try {
+    const bookings = await prisma.booking.findMany({ include: { package: true } });
+    
+    let totalSum = 0;
+    let message = `📊 *Havo Shari - Kunlik Hisobot*\n\n`;
+    message += `📅 Sana: ${new Date().toLocaleDateString('uz-UZ')}\n`;
+    message += `🔢 Jami buyurtmalar: ${bookings.length} ta\n\n`;
+
+    bookings.forEach((b, index) => {
+      const sum = (b.passengerCount * (b.package?.price || 0));
+      totalSum += sum;
+      message += `${index + 1}. ${b.name} (${b.phone})\n`;
+      message += `   📦 ${b.package?.name} - ${b.passengerCount} kishi\n`;
+      message += `   💰 Summa: ${sum.toLocaleString('uz-UZ')} so'm\n\n`;
+    });
+
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `💵 *UMUMIY TUSHUM: ${totalSum.toLocaleString('uz-UZ')} so'm*`;
+
+    const adminChatId = getAdminChatId();
+    if (adminChatId) {
+      await bot.sendMessage(adminChatId, message, { parse_mode: 'Markdown' });
+      res.json({ success: true });
+    } else {
+      res.status(400).json({ error: 'Admin chat ID topilmadi' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};

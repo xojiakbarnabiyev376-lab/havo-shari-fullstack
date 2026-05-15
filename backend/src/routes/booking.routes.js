@@ -22,6 +22,7 @@ router.post('/', upload.single('receipt'), bookingController.createBooking);
 router.get('/', authMiddleware, bookingController.getBookings);
 router.get('/check', bookingController.checkBooking);
 router.put('/:id/status', authMiddleware, bookingController.updateBookingStatus);
+router.post('/report', authMiddleware, bookingController.sendReport);
 router.delete('/clear', authMiddleware, bookingController.clearBookings);
 
 module.exports = router;
