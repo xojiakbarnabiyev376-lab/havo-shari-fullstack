@@ -31,7 +31,7 @@ function BookingForm() {
       .then(res => res.json())
       .then(data => setPackages(data));
     
-    fetch(`${apiUrl}/api/config`)
+    fetch(`${apiUrl}/api/auth/config`)
       .then(res => res.json())
       .then(data => setConfig(data));
   }, [apiUrl]);

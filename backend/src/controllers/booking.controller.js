@@ -109,14 +109,24 @@ exports.checkBooking = async (req, res, next) => {
 
 exports.clearBookings = async (req, res, next) => {
   try {
+    // 1. Database'ni tozalash
     await prisma.booking.deleteMany({});
-    const uploadPath = path.join(__dirname, '../../uploads');
-    if (fs.existsSync(uploadPath)) {
-      const files = fs.readdirSync(uploadPath);
-      for (const file of files) {
-        fs.unlinkSync(path.join(uploadPath, file));
+    
+    // 2. Fayllarni o'chirish (Xatolikka yo'l qo'ymaymiz)
+    try {
+      const uploadPath = path.join(__dirname, '../../uploads');
+      if (fs.existsSync(uploadPath)) {
+        const files = fs.readdirSync(uploadPath);
+        for (const file of files) {
+          if (file !== '.gitkeep') {
+            fs.unlinkSync(path.join(uploadPath, file));
+          }
+        }
       }
+    } catch (fileErr) {
+      console.warn('Fayllarni o\'chirishda xatolik (lekin baza tozalandi):', fileErr);
     }
+
     res.json({ success: true, message: 'Barcha buyurtmalar tozalandi' });
   } catch (err) {
     next(err);
