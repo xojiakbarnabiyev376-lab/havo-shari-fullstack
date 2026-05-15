@@ -1,6 +1,6 @@
 const exceljs = require('exceljs');
 const { prisma } = require('../config/prisma');
-const { bot, getAdminChatId } = require('../config/bot');
+const { bot, getAdminChatIds } = require('../config/bot');
 
 const getFilterWhere = (filter) => {
     let whereClause = {};
@@ -69,8 +69,8 @@ exports.exportExcel = async (req, res, next) => {
 
 exports.sendToTelegram = async (req, res, next) => {
   try {
-    const adminChatId = getAdminChatId();
-    if (!adminChatId) return res.status(400).json({ error: 'Bot hali faollashtirilmagan' });
+    const adminChatIds = await getAdminChatIds();
+    if (adminChatIds.length === 0) return res.status(400).json({ error: 'Adminlar topilmadi. Botga /start buyrug\'ini yuboring.' });
 
     const { filter } = req.query;
     const whereClause = getFilterWhere(filter);
@@ -93,7 +93,14 @@ exports.sendToTelegram = async (req, res, next) => {
     message += `\n📦 Jami buyurtmalar: ${totalCount} ta\n`;
     message += `💰 Jami tushum: ${totalSum.toLocaleString('ru-RU')} so'm\n`;
     
-    bot.sendMessage(adminChatId, message, { parse_mode: 'Markdown' });
+    for (const chatId of adminChatIds) {
+      try {
+        await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
+      } catch (err) {
+        console.error(`Error sending report to ${chatId}:`, err);
+      }
+    }
+    
     res.json({ success: true });
   } catch (err) {
     next(err);
