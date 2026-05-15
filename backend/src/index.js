@@ -1,6 +1,7 @@
 require('dotenv').config();
 const app = require('./app');
 const { initDB } = require('./config/prisma');
+require('./config/bot'); // Botni ishga tushirish
 
 const PORT = process.env.PORT || 5000;
 
