@@ -58,6 +58,7 @@ export default function CheckBookingPage() {
                     </span>
                   </div>
                   <div className={styles.bookingBody}>
+                    <p><strong>Mijoz:</strong> {b.name}</p>
                     <p><strong>Xizmat:</strong> {b.package?.name}</p>
                     <p><strong>Sana:</strong> {new Date(b.date).toLocaleDateString('uz-UZ')}</p>
                     <p><strong>Kishi soni:</strong> {b.passengerCount} ta</p>
