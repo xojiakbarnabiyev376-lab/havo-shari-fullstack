@@ -227,6 +227,11 @@
   }
   
   .packagesSection {
-    padding: 3rem 5%;
+    padding: 2rem 2%;
+  }
+  
+  .packagesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
