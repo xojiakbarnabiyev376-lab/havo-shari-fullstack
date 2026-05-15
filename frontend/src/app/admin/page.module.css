@@ -86,3 +86,30 @@
 .status.pending { background: #fef3c7; color: #d97706; }
 .status.confirmed { background: #dcfce7; color: #16a34a; }
 .status.cancelled { background: #fee2e2; color: #dc2626; }
+
+.tableContainer {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .loginCard {
+    padding: 1.5rem;
+    margin: 5vh auto;
+  }
+  
+  .table th, .table td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+}

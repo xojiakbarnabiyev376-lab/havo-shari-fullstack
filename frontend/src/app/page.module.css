@@ -193,3 +193,34 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroButtons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .langSwitcher {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .features {
+    padding: 3rem 5%;
+    margin-top: 0;
+  }
+  
+  .sectionTitle {
+    font-size: 2rem;
+  }
+  
+  .packagesSection {
+    padding: 3rem 5%;
+  }
+}

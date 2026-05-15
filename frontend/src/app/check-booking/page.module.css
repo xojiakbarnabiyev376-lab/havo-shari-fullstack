@@ -110,3 +110,25 @@
   margin: 0.25rem 0;
   font-size: 0.95rem;
 }
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+  
+  .form {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+}

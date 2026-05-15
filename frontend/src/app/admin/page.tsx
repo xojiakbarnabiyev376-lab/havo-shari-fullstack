@@ -211,7 +211,8 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <table className={styles.table}>
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
           <thead>
             <tr>
               <th>ID</th>
@@ -259,7 +260,8 @@ export default function AdminPage() {
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   );

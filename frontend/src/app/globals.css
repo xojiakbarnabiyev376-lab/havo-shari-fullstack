@@ -77,3 +77,15 @@ ul {
   -webkit-backdrop-filter: blur(16px);
   border-radius: 20px;
 }
+
+/* Global Mobile Fixes */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
